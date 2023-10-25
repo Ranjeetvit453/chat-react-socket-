@@ -7,6 +7,8 @@ import { FaArrowCircleLeft } from 'react-icons/fa';
 import { useEffect ,useState} from 'react';
 import { apiCall } from '../../utils/Utils';
 import TypeingIcon from "../typeing-icon/TypeingIcon"
+import Receivermessage from "./Receivermessage";
+import SenderMessage from './SenderMessage';
 var socket, selectedChatCompare;
 const Message = (props)=>{
     const [messages, setMessages] = useState([]);
@@ -22,6 +24,7 @@ const Message = (props)=>{
    // console.log(" props",props.userId)
     // io('http://localhost:4999',{ transports: ['websocket', 'polling', 'flashsocket'] }); // Replace with your server URL
     useEffect(() => {
+      // =  JSON.parse(localStorage.getItem('getToken'));
       if(props?.chatMessage){
         setMessages(props?.chatMessage)
       }
@@ -38,7 +41,7 @@ const Message = (props)=>{
     }, []);
 
     useEffect(() => {
-      console.log(" hello ",messages)
+     // console.log(" hello ",messages)
       socket.on("message recieved", (newMessageRecieved) => {
         console.log(" Message recived",newMessageRecieved)
         setMessages([...messages, newMessageRecieved]);
@@ -91,16 +94,23 @@ const Message = (props)=>{
             Chat With {props?.name}
         </div>
     <div id="chat" class="chat">
-    {messages?.map((msg, index) => (
-          <>
-          <div class="message left">
-        <p class="message-text">Hello!</p>
-      </div>
-      <div class="message right">
-      <p class="message-text">{msg.message}</p>
-      </div>
-      </>
-        ))}
+    {messages.map((msg, index) => {
+     return msg.receiver_id==props.userId ? <Receivermessage chat={msg.message} />:<SenderMessage chat={msg.message} />
+        // if (msg.receiver_id==props.userId) {
+        //   return <div key={index}></div>;
+        // }
+        // if(msg.sender_id==userData.id){
+        //   return <div></div>;
+        // }
+      })}
+    {/* {messages?.map((msg, index) =>(
+     
+     <>
+     <Receivermessage chat={msg.message} />
+       
+        <SenderMessage />
+        </> 
+    ))} */}
       <p>{istyping ? <TypeingIcon/>:'' }</p>
     </div>
     
