@@ -14,6 +14,9 @@ const Message = (props)=>{
     const [socketConnected, setSocketConnected] = useState(false);
     const [istyping, setIsTyping] = useState(false);
     const [userData,setUserData] = useState()
+    let dateTime;
+    let hour;
+
    
    
    // console.log(" props",props.userId)
@@ -22,7 +25,9 @@ const Message = (props)=>{
       if(props?.chatMessage){
         setMessages(props?.chatMessage)
       }
-       socket = io('http://localhost:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
+      //192.168.1.3
+      //localhost
+       socket = io('http://192.168.1.3:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
       socket.emit("setup",props.userId);
       socket.on("connected", () => setSocketConnected(true));
       socket.on("typing", () => setIsTyping(true));
@@ -76,9 +81,43 @@ const Message = (props)=>{
      <div class="grid grid-rows-2 grid-flow-col gap-1">
        
      <div class="row-span-6 ..."></div>
- <div class="col-span-0">
+ <div class="col-span-0 disply">
+
+ <div class="chat-containter">
+ <div class="chat-header">
+      <span onClick={handleRedirect}>
+        <FaArrowCircleLeft className="h-7 w-7"/>
+      </span>
+            Chat With {props?.name}
+        </div>
+    <div id="chat" class="chat">
+    {messages?.map((msg, index) => (
+          <>
+          <div class="message left">
+        <p class="message-text">Hello!</p>
+      </div>
+      <div class="message right">
+      <p class="message-text">{msg.message}</p>
+      </div>
+      </>
+        ))}
+      <p>{istyping ? <TypeingIcon/>:'' }</p>
+    </div>
+    
+    
+    <div class="message-input">
+            <input type="text"
+             onChange={($event)=>handleInputMessage($event)} 
+             value={message}
+            placeholder="Type your message..."/>
+            <button onClick={sendMessage}>Send</button>
+        </div>
+    
+    </div>
+  
+  
  
- <div class="chat-box">
+ {/* <div class="chat-box">
   
     
         <div class="chat-header">
@@ -90,7 +129,23 @@ const Message = (props)=>{
         <div class="chat-messages">
         <ul>
           {messages?.map((msg, index) => (
-            <li key={index}>{msg.message}</li>
+            <li key={index}>
+              <div class="container">
+  <p>{msg.message}</p>
+  <span class="time-right">
+  {new Date(msg.createdAt).toLocaleString("en-US", {timeZone: "Asia/Shanghai"})}
+  </span>
+</div>
+
+<div class="container darker">
+  
+  <p>Hey! I'm fine. Thanks for asking!</p>
+  <span class="time-left">11:01</span>
+</div>
+             
+              
+              
+              </li>
           ))}
         </ul>
         {istyping ? <TypeingIcon/>:'' }
@@ -104,7 +159,7 @@ const Message = (props)=>{
             placeholder="Type your message..."/>
             <button onClick={sendMessage}>Send</button>
         </div>
-    </div>
+    </div> */}
     </div>
      </div>
      )
