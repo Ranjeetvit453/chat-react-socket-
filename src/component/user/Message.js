@@ -30,7 +30,7 @@ const Message = (props)=>{
       }
       //192.168.1.3
       //localhost
-       socket = io('http://localhost:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
+       socket = io('https://chat-node-ycg4.onrender.com:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
       socket.emit("setup",props.userId);
       socket.on("connected", () => setSocketConnected(true));
       socket.on("typing", () => setIsTyping(true));
