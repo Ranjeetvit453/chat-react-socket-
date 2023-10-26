@@ -30,7 +30,7 @@ const Message = (props)=>{
       }
       //192.168.1.3
       //localhost
-       socket = io('http://192.168.1.3:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
+       socket = io('http://localhost:9999',{ transports: ['websocket', 'polling', 'flashsocket'] })
       socket.emit("setup",props.userId);
       socket.on("connected", () => setSocketConnected(true));
       socket.on("typing", () => setIsTyping(true));
@@ -43,9 +43,10 @@ const Message = (props)=>{
     useEffect(() => {
      // console.log(" hello ",messages)
       socket.on("message recieved", (newMessageRecieved) => {
-        console.log(" Message recived",newMessageRecieved)
+      //  console.log(" Message recived",newMessageRecieved)
+       // console.log(" preview messages",messages)
         setMessages([...messages, newMessageRecieved]);
-        console.log("  recived ked bad",messages)
+       // console.log("  recived ked bad",messages)
         
       });
     },[messages]);
@@ -94,15 +95,9 @@ const Message = (props)=>{
             Chat With {props?.name}
         </div>
     <div id="chat" class="chat">
-    {messages.map((msg, index) => {
-     return msg.receiver_id==props.userId ? <Receivermessage chat={msg.message} />:<SenderMessage chat={msg.message} />
-        // if (msg.receiver_id==props.userId) {
-        //   return <div key={index}></div>;
-        // }
-        // if(msg.sender_id==userData.id){
-        //   return <div></div>;
-        // }
-      })}
+    {/* {messages.map((msg, index) =>msg.receiver_id==props.userId?<Receivermessage loginUserId={userData.id} sender_id={msg.sender_id} chat={msg} />:'')} */}
+    {messages.map((msg, index) =><Receivermessage
+     loginUserId={userData.id} sender_id={msg.sender_id} chat={msg} />)}
     {/* {messages?.map((msg, index) =>(
      
      <>

@@ -1,11 +1,14 @@
 import "./message.css"
+import { useState,useEffect } from "react"
+import SenderMessage from "./SenderMessage"
 const Receivermessage = (props)=>{
-    console.log(" massageReceivermessage ",props)
+
+    console.log("receiver message",props)
     return(
         <div>
-            <div class="message left">
-        <p class="message-text">{props?.chat}</p>
-      </div>
+      {props.sender_id==props.loginUserId?<SenderMessage chat={props.chat.message} />:<div class="message left"><p class="message-text">{props?.chat?.message}</p></div>
+}
+      
         </div>
     )
 }
