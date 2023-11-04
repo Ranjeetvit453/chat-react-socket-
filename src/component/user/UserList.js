@@ -32,7 +32,8 @@ const UserList = ()=>{
       const userInfo =  JSON.parse(localStorage.getItem('getToken'));
       const payload = {
         receiver_id:id,
-        sender_id:userInfo?.id
+        sender_id:userInfo?.id,
+        page:1
        }
        setMessages()
       const userRes = await apiCall("POST",`/user/get-single-chat-message`,payload,true);

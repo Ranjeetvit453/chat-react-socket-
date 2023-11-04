@@ -45,7 +45,7 @@ body {
     display: flex;
     padding: 10px;
     border-top: 1px solid #ccc;
-    border: 3px solid #17a2b8;
+   
 }
 
 .message-input input {
@@ -56,15 +56,21 @@ body {
     outline: none;
 }
 
-.message-input button {
-    background-color: #007BFF;
+.message-input-border {
+    border: 1px solid #dcdcdc;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* .message-input button {
+   
     color: #fff;
     border: none;
     border-radius: 3px;
     padding: 5px 10px;
     margin-left: 5px;
     cursor: pointer;
-}
+} */
 
 
 body {
@@ -120,6 +126,10 @@ body {
     width: 612px;
     height: 100%;
     margin: 0 auto;
+  }
+
+  .mess {
+    border: 3px solid #8080805e;
   }
   
   .chat-containter {
