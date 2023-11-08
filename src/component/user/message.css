@@ -276,7 +276,11 @@ body {
     margin-left: 286px;
     margin-top: -76px;
   }
-
+  .chat-images {
+    width: 29px;
+    height: 30px;
+    border: solid 2px #17a2b8;
+  }
 
 /* @keyframes bounce {
     0 {transform: translate(0,0)}

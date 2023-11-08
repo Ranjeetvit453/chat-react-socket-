@@ -40,7 +40,7 @@ const UserList = ()=>{
       if(userRes?.data?.status==200){
         setPropsData({name:name,id:id})
         setMessages(userRes?.data?.data)
-           console.log(" userRes?.data?.data mesaage ",userRes?.data?.data)
+          // console.log(" userRes?.data?.data mesaage ",userRes?.data?.data)
        
         setChat(true)
        
